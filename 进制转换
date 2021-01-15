@@ -1,0 +1,80 @@
+
+10进制转化其他进制    
+10进制转2进制    Integer.toBinaryString(n);    一个二进制字符串.
+10进制转8进制    Integer.toOctalString(n);    一个八进制字符串
+10进制转16进制    Integer.toHexString(n);    一个16进制字符串
+10进制转 r 进制    Integer.toString(100, 16);    一个r进制字符串
+如果数值过大
+  可以使用Long类型            Long.toBinaryString(num);
+r进制转10进制    方法
+radix进制的字符串s转10进制    Integer.parseInt((String) s,(int) radix);
+
+import java.util.Scanner;
+
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()) {
+            String s1 = sc.nextLine();
+            String num = sc.nextLine();
+            System.out.println(ten(s1));
+            System.out.println(two(Long.valueOf(num)));
+        }
+    }
+
+    private static long ten(String ip) {
+        StringBuilder sb = new StringBuilder();
+        String[] ips = ip.split("\\.");
+        for (int i = 0; i < ips.length; i++) {
+            if (Integer.valueOf(ips[i]) > 255 || Integer.valueOf(ips[i]) < 0)
+                return -1;
+            //10进制转二进制
+            String tmp = Integer.toBinaryString(Integer.valueOf(ips[i]));
+            for (int j = 0; j < 8 - tmp.length(); j++)
+                sb.append("0");
+            sb.append(tmp);
+        }
+        long num = Long.valueOf(sb.toString(), 2);
+        return num;
+    }
+
+    private static String two(long num) {
+        String binaryStr = Long.toBinaryString(num);
+        StringBuilder sb = new StringBuilder();
+        int len = binaryStr.length();
+        while (len != 32) {
+            sb.append("0");
+            len++;
+        }
+        sb.append(binaryStr);
+        int a1 = Integer.valueOf(sb.substring(0, 8), 2);
+        int a2 = Integer.valueOf(sb.substring(8, 16), 2);
+        int a3 = Integer.valueOf(sb.substring(16, 24), 2);
+        int a4 = Integer.valueOf(sb.substring(24, 32), 2);
+
+        return a1 + "." + a2 + "." + a3 + "." + a4;
+    }
+}
+
+//class Main0 {
+//    public  int search(int[] arr,int n){
+//        for(int i=0;i<arr.length;i++){
+//            if( arr[i] == n){
+//                return i;
+//            }
+//        }
+//        return -1;
+//    }
+//    public static void main2(String[] args) {
+//        Scanner sc = new Scanner(System.in);
+//        int n = sc.nextInt();
+//        int[] arr1 = new int[n];
+//        for (int i = 0; i < n; i++) {
+//            arr1[i] = sc.nextInt();
+//        }
+//        int m = sc.nextInt();
+//        System.out.println(search(arr1,m));
+//    }
+//}
